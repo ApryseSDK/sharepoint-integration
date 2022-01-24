@@ -1,0 +1,22 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# WebViewer
+/client/public/webviewer
+
+# dependencies
+/client/node_modules
+# webviewer-react-sample/.pnp
+# webviewer-react-sample/.pnp.js
+
+# testing
+/client/coverage
+
+# production
+/client/build
+
+# misc
+/client/.env
+/client/package-lock.json
+/client/yarn.lock
+
+.DS_Store
