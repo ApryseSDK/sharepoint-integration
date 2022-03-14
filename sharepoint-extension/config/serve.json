@@ -4,7 +4,7 @@
   "https": true,
   "serveConfigurations": {
     "default": {
-      "pageUrl": "https://jingjackhou.sharepoint.com/sites/jingjackhou/Shared%20Documents/Forms/AllItems.aspx",
+      "pageUrl": "https://{your-tenant-prefix}.sharepoint.com/sites/{your-site-name}/{your-document-url}",
       "customActions": {
         "d6de4e80-e932-4a21-8e3a-924678ce023f": {
           "location": "ClientSideExtension.ListViewCommandSet",
