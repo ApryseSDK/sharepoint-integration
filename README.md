@@ -79,23 +79,27 @@ This will also start your default browser within the URL defined in <strong>./co
 6. Accept the loading of debug manifests by selection <strong>Load debug scripts</strong> when prompted.
    ![](https://docs.microsoft.com/en-us/sharepoint/dev/images/ext-com-accept-debug-scripts.png)
 
-7. Get started with Sharepoint Online Management Shell and connect to your account
+7. Then you will see PDFTron Button ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
+
+To Set up the **client** side, you should follow next steps:
+
+8. Get started with Sharepoint Online Management Shell and connect to your account
 
    `Connect-SPOService -Url https://contoso-admin.sharepoint.com`
 
-8. Ensure you disable your custom App Authentication so that you can use sharepoint rest api
+9. Ensure you disable your custom App Authentication so that you can use sharepoint rest api
 
    `set-spotenant -DisableCustomAppAuthentication $false`
 
-9. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Following these steps:
+10. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Following these steps:
 
-   - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/AppRegNew.aspx`
-     ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-10+at+10.36.18+AM.png)
-   - generate **client_id**, **client_secret** and other information and click **Create** button
-     ![](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/media/apponly/sharepointapponly1.png)
-   - remember **client_id** and **client_secret**
+- Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/AppRegNew.aspx`
+  ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-10+at+10.36.18+AM.png)
+- generate **client_id**, **client_secret** and other information and click **Create** button
+  ![](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/media/apponly/sharepointapponly1.png)
+- remember **client_id** and **client_secret**
 
-10. Also you need to [Granting access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**.
+11. Also you need to [Granting access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**.
 
     - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/appinv.aspx`
     - Look up the **clent_id**
@@ -109,13 +113,13 @@ This will also start your default browser within the URL defined in <strong>./co
       ```
     - click **Create** button, and click **Trust** if there is a modal shows up
 
-11. To get your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
+12. To get your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
 
-12. There are lots of ways to get your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file.
+13. There are lots of ways to get your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file.
 
-13. After get all information we want, we can easily set each of your projects up.
+14. After get all information we want, we can easily set each of your projects up.
 
-14. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
+15. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
 
     - REACT_APP_CLIENT_ID: `<client_id>@<tenant_id>`
     - REACT_APP_CLIENT_SECRET: `client_secret`
@@ -124,12 +128,12 @@ This will also start your default browser within the URL defined in <strong>./co
     - REACT_APP_TENANT_ID: `tenant_id`
     - REACT_APP_ABSOLUTE_URL: `<url you can get from step 6>`
 
-15. run `npm instal`
+16. run `npm instal`
 
-16. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
+17. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
 
 Inside of a [GitHub project](https://github.com/PDFTron/sharepoint-integration/tree/main/client), we automate the copying of static resources by executing [copy-webviewer-files.js](https://github.com/PDFTron/sharepoint-integration/blob/main/client/tools/copy-webviewer-files.js)
 
-17. run `npm run`
+18. run `npm run`
 
-18. If you have any other question, you can contact me directly to my email: **jhou@pdftron.com**
+19. If you have any other question, you can contact me directly to my email: **jhou@pdftron.com**
