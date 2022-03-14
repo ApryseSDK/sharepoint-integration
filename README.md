@@ -128,7 +128,7 @@ This will also start your default browser within the URL defined in <strong>./co
 
 16. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
 
-Inside of a [GitHub project](https://github.com/PDFTron/sharepoint-integration/tree/main/client), we automate the copying of static resources by executing [copy-webviewer-files.js]()
+Inside of a [GitHub project](https://github.com/PDFTron/sharepoint-integration/tree/main/client), we automate the copying of static resources by executing [copy-webviewer-files.js](https://github.com/PDFTron/sharepoint-integration/blob/main/client/tools/copy-webviewer-files.js)
 
 17. run `npm run`
 
