@@ -70,7 +70,7 @@ In the github repo there are two individual projects.
    }
 ```
 
-4.<strong>Important</strong>: For the Sharepoint Extension to work, it's better you could use a node version higher than v14.16.x. We recommend <strong>v14.16.0</strong>. In the root fold, you could run `npm install`.
+4. <strong>Important</strong>: For the Sharepoint Extension to work, it's better you could use a node version higher than v14.16.x. We recommend <strong>v14.16.0</strong>. In the root fold, you could run `npm install`.
 
 5. Finally, run `gulp serve` to get the app running. When the codes compiles without errors, it serves the resulting manifest from <strong>https://localhost:4321</strong>. <br />
 
@@ -124,6 +124,12 @@ This will also start your default browser within the URL defined in <strong>./co
     - REACT_APP_TENANT_ID: `tenant_id`
     - REACT_APP_ABSOLUTE_URL: `<url you can get from step 6>`
 
-15. `npm instal` and `npm start`
+15. run `npm instal`
 
-16. If you have any other question, you can contact me directly to my email: **jhou@pdftron.com**
+16. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
+
+Inside of a [GitHub project](https://github.com/PDFTron/sharepoint-integration/tree/main/client), we automate the copying of static resources by executing [copy-webviewer-files.js]()
+
+17. run `npm run`
+
+18. If you have any other question, you can contact me directly to my email: **jhou@pdftron.com**
