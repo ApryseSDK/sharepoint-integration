@@ -81,15 +81,18 @@ In the github repo there are two individual projects.
 ### Initial setup - WebViewer client
 To Set up the **client** side, you proceed with these steps:
 
-1. Get started with Sharepoint Online Management Shell (Windows) or PnP PowerShell (Open Source, or non-Windows OS) and connect to your account
+1. Get started with Sharepoint Online Management Shell (Windows) or PnP PowerShell (Open Source, or non-Windows OS) and connect to your Sharepoint tenant environment:
 
-   `Connect-SPOService -Url https://{your-sharepoint-url}.sharepoint.com`
+   * Sharepoint Online Management Shell `Connect-SPOService -Url https://{your-sharepoint-url}.sharepoint.com`
+   * [Connect-PnPOnline](https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html) 
 
-2. Ensure you disable your custom App Authentication so that you can use sharepoint rest api
 
-   `set-spotenant -DisableCustomAppAuthentication $false`
+2. We need to disable Custom App Authentication in your Sharepoint environment to make sure the Sharepoint REST API is available to WebViewer:
 
-3. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Following these steps:
+   * `set-spotenant -DisableCustomAppAuthentication $false`
+   * [Set-PnPTenant](https://pnp.github.io/powershell/cmdlets/Set-PnPTenant.html) `[-DisableCustomAppAuthentication $false` 
+
+3. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Follow these steps to generate authentication for your WebViewer app:
 
 - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/AppRegNew.aspx`
   ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-10+at+10.36.18+AM.png)
@@ -97,7 +100,7 @@ To Set up the **client** side, you proceed with these steps:
   ![](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/media/apponly/sharepointapponly1.png)
 - remember **client_id** and **client_secret**
 
-4. Also you need to [Granting access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**.
+4. Also, you need to [Grant access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**. In your integration it could look similar to this:
 
     - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/appinv.aspx`
     - Look up the **client_id**
@@ -111,13 +114,7 @@ To Set up the **client** side, you proceed with these steps:
       ```
     - click **Create** button, and click **Trust** if there is a modal shows up
 
-5. To get your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
-
-6. There are lots of ways to get your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file.
-
-7. After get all information we want, we can easily set each of your projects up.
-
-8. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
+5. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
 
 ```
 REACT_APP_CLIENT_ID=<client_id>@<tenant_id>
@@ -128,12 +125,15 @@ REACT_APP_TENANT_ID= <tenant_id>
 REACT_APP_ABSOLUTE_URL= <url you can get from step 6>
 ```
 
-9. run `npm install`
+* For your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file
+* To find your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
 
-10. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
+6. run `npm install`
+
+7. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
 
 Run the following script from the `/client` folder:
 
 `node tools/copy-webviewer-files.js`
 
-11. run `npm run`
+8. Run `npm run start` to start your WebViewer server. You can now use the button we added in the first part, which will open a new tab within your WebViewer environment which shows the selected file.
