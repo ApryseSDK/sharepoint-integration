@@ -1,9 +1,10 @@
 # WebViewer - Sharepoint integration sample
 
+This sample serves as a guide to integrate your hosted WebViewer app with a Sharepoint document library. It showcases how you can leverage a control block to send file metadata to your WebViewer environment, which then opens the Sharepoint file using an authenticated request.
 ## Prerequisites
 
 - (Optional but recommended) [Node Version Manager](http://npm.github.io/installation-setup-docs/installing/using-a-node-version-manager.html)
-- Set up on Windows environment highly recommended
+- Set up on Windows environment highly recommended (if you are not using a Windows machine, we recommend using [PnP PowerShell](https://pnp.github.io/powershell/index.html))
 
 ## For step-by-step help on setting up a SharePoint development environment, see one of the following:
 
@@ -21,21 +22,19 @@ In the github repo there are two individual projects.
       <li>client</li>
       <li>sharepoint-extension</li>
    </ol>
-   <strong>Client</strong> is the project which will host PDFTron Webview and Operating PDF Editing. <br>
+   <strong>Client</strong> is the project which will host PDFTron WebViewer - this is a representation of your cloud-hosted WebViewer instance or your local development environment. <br>
    <strong>Sharepoint-extension</strong> is Sharepoint Extension which is called            
    
-   [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions) We add PDFTron Button in Sharepoint Document page so that we can open PDFTron Webviewer externally from sharepoint.
+   [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions). This extension allows us to add a button to any List View in Sharepoint, such as your document libraries. We add `Open in PDFTron` as a menu option to open and process any document in WebViewer.
    ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
 
-### Initial Setup
+### Initial Setup - Sharepoint Tenant
 
-1. Download the git repo and then open the project **sharepoint-extension**.
+1. Clone GitHub repo and then open the project in your development environment.
 
-2. Firstly, you need to set up the webviewer url in _ExportToDocCommandSet.ts_ file
-   `const pdftronUrl = 'http://localhost:3000'`, if your webviewer is host on <strong>http://localhost:3000</strong> you can set the pdftronUrl, otherwise you could other location where you set the PDFTron Webview.
+2. Open _sharepoint-extension/ExportToDocCommandSet.ts_ and set the WebViewer url in the file - it defaults to your local WebViewer dev environment (`const pdftronUrl = 'http://localhost:3000'`). Change this URL to your hosting environment if needed.
 
-3. Secondly, you need to set **pageUrl** in _config/serve.json_, which is your doucment folder in sharepoint. It's just for demo. Open <strong>./config/serve.json</strong> file. Update the <strong>pageUrl</strong> to match a URL of the list where you want to test the solution. After edits your serve.json should look somewhat like:
-
+3. Secondly, you need to set **pageUrl** in _config/serve.json_, which should point at your document library's Sharepoint URL. After you are done, your `serve.json` file should look similar to this:
 ```
    {
       "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
@@ -70,28 +69,27 @@ In the github repo there are two individual projects.
    }
 ```
 
-4. <strong>Important</strong>: For the Sharepoint Extension to work, it's better you could use a node version higher than v14.16.x. We recommend <strong>v14.16.0</strong>. In the root fold, you could run `npm install`.
+4. <strong>Important</strong>: For the Sharepoint Extension to work, we recommend using a node version higher than v14.16.x. We recommend <strong>v14.16.0</strong>. In the root folder, run `npm install` to set up dependencies control block extension.
 
-5. Finally, run `gulp serve` to get the app running. When the codes compiles without errors, it serves the resulting manifest from <strong>https://localhost:4321</strong>. <br />
-
-This will also start your default browser within the URL defined in <strong>./config/serve.json</strong> file. Notice that at least in Windows, you can control which browser window is used by activating the preferred one before executing this command.
+5. Finally, run `gulp serve` to add your control block extension to your Sharepoint environment. When the codes compiles without errors, it serves the resulting manifest and should open your Sharepoint environment specified in Step 3.
 
 6. Accept the loading of debug manifests by selection <strong>Load debug scripts</strong> when prompted.
    ![](https://docs.microsoft.com/en-us/sharepoint/dev/images/ext-com-accept-debug-scripts.png)
 
-7. Then you will see PDFTron Button ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
+7. When clicking on the three dots next to a file in document library, you should see the `Open in PDFTron` Button.[](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
 
-To Set up the **client** side, you should follow next steps:
+### Initial setup - WebViewer client
+To Set up the **client** side, you proceed with these steps:
 
-8. Get started with Sharepoint Online Management Shell and connect to your account
+1. Get started with Sharepoint Online Management Shell (Windows) or PnP PowerShell (Open Source, or non-Windows OS) and connect to your account
 
-   `Connect-SPOService -Url https://contoso-admin.sharepoint.com`
+   `Connect-SPOService -Url https://{your-sharepoint-url}.sharepoint.com`
 
-9. Ensure you disable your custom App Authentication so that you can use sharepoint rest api
+2. Ensure you disable your custom App Authentication so that you can use sharepoint rest api
 
    `set-spotenant -DisableCustomAppAuthentication $false`
 
-10. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Following these steps:
+3. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Following these steps:
 
 - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/AppRegNew.aspx`
   ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-10+at+10.36.18+AM.png)
@@ -99,10 +97,10 @@ To Set up the **client** side, you should follow next steps:
   ![](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/media/apponly/sharepointapponly1.png)
 - remember **client_id** and **client_secret**
 
-11. Also you need to [Granting access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**.
+4. Also you need to [Granting access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**.
 
     - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/appinv.aspx`
-    - Look up the **clent_id**
+    - Look up the **client_id**
       ![](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/media/apponly/sharepointapponly2.png)
     - Write Permission Request XML:
       ```
@@ -113,27 +111,29 @@ To Set up the **client** side, you should follow next steps:
       ```
     - click **Create** button, and click **Trust** if there is a modal shows up
 
-12. To get your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
+5. To get your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
 
-13. There are lots of ways to get your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file.
+6. There are lots of ways to get your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file.
 
-14. After get all information we want, we can easily set each of your projects up.
+7. After get all information we want, we can easily set each of your projects up.
 
-15. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
+8. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
 
-    - REACT_APP_CLIENT_ID: `<client_id>@<tenant_id>`
-    - REACT_APP_CLIENT_SECRET: `client_secret`
-    - REACT_APP_RESOURCE: `00000003-0000-0ff1-ce00-000000000000/<username>.sharepoint.com@<tenant_id>`
-    - REACT_APP_GRANT_TYPE: `client_credentials`
-    - REACT_APP_TENANT_ID: `tenant_id`
-    - REACT_APP_ABSOLUTE_URL: `<url you can get from step 6>`
+```
+REACT_APP_CLIENT_ID=<client_id>@<tenant_id>
+REACT_APP_CLIENT_SECRET= <client_secret>
+REACT_APP_RESOURCE= 00000003-0000-0ff1-ce00-000000000000/<username>.sharepoint.com@<tenant_id>
+REACT_APP_GRANT_TYPE= client_credentials
+REACT_APP_TENANT_ID= <tenant_id>
+REACT_APP_ABSOLUTE_URL= <url you can get from step 6>
+```
 
-16. run `npm instal`
+9. run `npm install`
 
-17. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
+10. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
 
-Inside of a [GitHub project](https://github.com/PDFTron/sharepoint-integration/tree/main/client), we automate the copying of static resources by executing [copy-webviewer-files.js](https://github.com/PDFTron/sharepoint-integration/blob/main/client/tools/copy-webviewer-files.js)
+Run the following script from the `/client` folder:
 
-18. run `npm run`
+`node tools/copy-webviewer-files.js`
 
-19. If you have any other question, you can contact me directly to my email: **jhou@pdftron.com**
+11. run `npm run`
