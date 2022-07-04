@@ -8,10 +8,10 @@ This sample serves as a guide to integrate your hosted WebViewer app with a Shar
 
 ## For step-by-step help on setting up a SharePoint development environment, see one of the following:
 
-[Sharepoint Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/get-started/building-simple-cmdset-with-dialog-api)\
-[Set up your Microsoft 365 Tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)\
-[Set up your SharePoint Framework Development Environment](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment)\
-[Create your team site in Sharepoint](https://support.microsoft.com/en-us/office/create-a-team-site-in-sharepoint-ef10c1e7-15f3-42a3-98aa-b5972711777d)
+* [Sharepoint Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/get-started/building-simple-cmdset-with-dialog-api)\
+* [Set up your Microsoft 365 Tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)\
+* [Set up your SharePoint Framework Development Environment](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment)\
+* [Create your team site in Sharepoint](https://support.microsoft.com/en-us/office/create-a-team-site-in-sharepoint-ef10c1e7-15f3-42a3-98aa-b5972711777d)
 
 ## Project Description
 
@@ -22,13 +22,13 @@ In the github repo there are two individual projects.
       <li>client</li>
       <li>sharepoint-extension</li>
    </ol>
-   <strong>Client</strong> is the project which will host PDFTron WebViewer - this is a representation of your cloud-hosted WebViewer instance or your local development environment. <br>
-   <strong>Sharepoint-extension</strong> is Sharepoint Extension which is called            
+   * <strong>Client</strong> is the project which will host PDFTron WebViewer - this is a representation of your cloud-hosted WebViewer instance or your local development environment. <br>
+   * <strong>Sharepoint-extension</strong> is Sharepoint Extension which is called            
    
    [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions). This extension allows us to add a button to any List View in Sharepoint, such as your document libraries. We add `Open in PDFTron` as a menu option to open and process any document in WebViewer.
    ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
 
-### Initial Setup - Sharepoint Tenant
+### Prepare your Sharepoint Tenant
 
 1. Clone GitHub repo and then open the project in your development environment.
 
@@ -78,19 +78,18 @@ In the github repo there are two individual projects.
 
 7. When clicking on the three dots next to a file in document library, you should see the `Open in PDFTron` Button.[](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
 
-### Initial setup - WebViewer client
+### Integrate your WebViewer client
 To Set up the **client** side, you proceed with these steps:
 
 1. Get started with Sharepoint Online Management Shell (Windows) or PnP PowerShell (Open Source, or non-Windows OS) and connect to your Sharepoint tenant environment:
 
    * Sharepoint Online Management Shell `Connect-SPOService -Url https://{your-sharepoint-url}.sharepoint.com`
-   * [Connect-PnPOnline](https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html) 
-
+   * [Connect-PnPOnline](https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html) `-Url https://{your-sharepoint-url}.sharepoint.com`
 
 2. We need to disable Custom App Authentication in your Sharepoint environment to make sure the Sharepoint REST API is available to WebViewer:
 
    * `set-spotenant -DisableCustomAppAuthentication $false`
-   * [Set-PnPTenant](https://pnp.github.io/powershell/cmdlets/Set-PnPTenant.html) `[-DisableCustomAppAuthentication $false` 
+   * [Set-PnPTenant](https://pnp.github.io/powershell/cmdlets/Set-PnPTenant.html) `-DisableCustomAppAuthentication $false` 
 
 3. To get your access token, you need to [Register SharePoint Add-ins](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/register-sharepoint-add-ins). Follow these steps to generate authentication for your WebViewer app:
 
@@ -100,7 +99,7 @@ To Set up the **client** side, you proceed with these steps:
   ![](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/media/apponly/sharepointapponly1.png)
 - remember **client_id** and **client_secret**
 
-4. Also, you need to [Grant access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube channel](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to get your **client_id**, **client_secret**, and **tenant_info**. In your integration it could look similar to this:
+4. Also, you need to [Grant access using SharePoint App-Only](https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azureacs) or you can check out this [youtube video](https://www.youtube.com/watch?v=YMliU4vB_YM&t=631s) to learn how to get your **client_id**, **client_secret**, and **tenant_info**. In your integration it should look similar to this:
 
     - Go to `{username}.sharepoint.com/sites/sitename/_layouts/15/appinv.aspx`
     - Look up the **client_id**
@@ -112,9 +111,9 @@ To Set up the **client** side, you proceed with these steps:
                 <AppPermissionRequest Scope="http://sharepoint/content/sitecollection/web/list" Right="Write"/>
            </AppPermissionRequests>
       ```
-    - click **Create** button, and click **Trust** if there is a modal shows up
+    - click **Create** button, and click **Trust** in the modal if applicable.
 
-5. Firstly, let's open **client** project, create .env in your root folder and set each following variables:
+5. Now, let's open our **client** project, and create an .env file in your root folder and set each of the following variables:
 
 ```
 REACT_APP_CLIENT_ID=<client_id>@<tenant_id>
@@ -125,7 +124,7 @@ REACT_APP_TENANT_ID= <tenant_id>
 REACT_APP_ABSOLUTE_URL= <url you can get from step 6>
 ```
 
-* For your **absolute_url**, in your **sharepoint-extension** project, you can `console.log(this.context.pageContext.web)` to find your absolute_url in ExportToDocCommandSet.ts file
+* For your **absolute_url**, in your **sharepoint-extension** project, you can add `console.log(this.context.pageContext.web)` in the `onInit` function to find your absolute_url in ExportToDocCommandSet.ts file
 * To find your **tenant_id**, you can checkout this [link](https://piyushksingh.com/2017/03/06/get-office-365-tenant-id/)
 
 6. run `npm install`
