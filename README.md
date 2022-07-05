@@ -8,20 +8,20 @@ This sample serves as a guide to integrate your hosted WebViewer app with a Shar
 
 ## For step-by-step help on setting up a SharePoint development environment, see one of the following:
 
-* [Sharepoint Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/get-started/building-simple-cmdset-with-dialog-api)\
-* [Set up your Microsoft 365 Tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)\
-* [Set up your SharePoint Framework Development Environment](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment)\
+* [Sharepoint Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/get-started/building-simple-cmdset-with-dialog-api)
+* [Set up your Microsoft 365 Tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
+* [Set up your SharePoint Framework Development Environment](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment)
 * [Create your team site in Sharepoint](https://support.microsoft.com/en-us/office/create-a-team-site-in-sharepoint-ef10c1e7-15f3-42a3-98aa-b5972711777d)
 
 ## Project Description
 
 ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+1.39.40+PM.png)
+
 In the github repo there are two individual projects.
 
    * Client is the project which will host PDFTron WebViewer - this is a representation of your cloud-hosted WebViewer instance or your local development environment. 
    * Sharepoint-extension is Sharepoint Extension which is called [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions). This extension allows us to add a button to any List View in Sharepoint, such as your document libraries. We add `Open in PDFTron` as a menu option to open and process any document in WebViewer.
-   
-   [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions). This extension allows us to add a button to any List View in Sharepoint, such as your document libraries. We add `Open in PDFTron` as a menu option to open and process any document in WebViewer.
+
    ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
 
 ### Prepare your Sharepoint Tenant
