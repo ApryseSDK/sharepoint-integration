@@ -18,12 +18,8 @@ This sample serves as a guide to integrate your hosted WebViewer app with a Shar
 ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+1.39.40+PM.png)
 In the github repo there are two individual projects.
 
-   <ol>
-      <li>client</li>
-      <li>sharepoint-extension</li>
-   </ol>
-   * <strong>Client</strong> is the project which will host PDFTron WebViewer - this is a representation of your cloud-hosted WebViewer instance or your local development environment. <br>
-   * <strong>Sharepoint-extension</strong> is Sharepoint Extension which is called            
+   * Client is the project which will host PDFTron WebViewer - this is a representation of your cloud-hosted WebViewer instance or your local development environment. 
+   * Sharepoint-extension is Sharepoint Extension which is called [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions). This extension allows us to add a button to any List View in Sharepoint, such as your document libraries. We add `Open in PDFTron` as a menu option to open and process any document in WebViewer.
    
    [Edit Control Block](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/guidance/migrate-from-ecb-to-spfx-extensions). This extension allows us to add a button to any List View in Sharepoint, such as your document libraries. We add `Open in PDFTron` as a menu option to open and process any document in WebViewer.
    ![](https://pdftron.s3.amazonaws.com/custom/test/jack/sharepoint_readme_pics/Screen+Shot+2022-03-14+at+2.02.38+PM.png)
