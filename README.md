@@ -127,8 +127,8 @@ REACT_APP_ABSOLUTE_URL= <url you can get from step 3 - example https://{tenant}.
 
 7. Next we must copy the static assets required for WebViewer to run. The files are located in `node_modules/@pdftron/webviewer/public` and must be moved into a location that will be served and publicly accessible. In React, it will be `public` folder.
 
-Run the following script from the `/client` folder:
+* Run the following script from the `/client` folder:
 
-`node tools/copy-webviewer-files.js`
+* `node tools/copy-webviewer-files.js`
 
 8. Run `npm run start` to start your WebViewer server. You can now use the button we added in the first part, which will open a new tab within your WebViewer environment which shows the selected file.
