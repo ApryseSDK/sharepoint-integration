@@ -113,11 +113,11 @@ To Set up the **client** side, you proceed with these steps:
 
 ```
 REACT_APP_CLIENT_ID=<client_id>@<tenant_id>
-REACT_APP_CLIENT_SECRET= <client_secret>
-REACT_APP_RESOURCE= 00000003-0000-0ff1-ce00-000000000000/<username>.sharepoint.com@<tenant_id>
-REACT_APP_GRANT_TYPE= client_credentials
-REACT_APP_TENANT_ID= <tenant_id>
-REACT_APP_ABSOLUTE_URL= <url you can get from step 6>
+REACT_APP_CLIENT_SECRET= <client_secret from step 3>
+REACT_APP_RESOURCE= 00000003-0000-0ff1-ce00-000000000000/<username@{tenant}.onmicrosoft.com.>.sharepoint.com@<tenant_id from step 3>
+REACT_APP_GRANT_TYPE= client_credentials /* <do not change this> */
+REACT_APP_TENANT_ID= <tenant_id from step 3>
+REACT_APP_ABSOLUTE_URL= <url you can get from step 3 - example https://{tenant}.sharepoint.com/sites/{sitename}/>
 ```
 
 * For your **absolute_url**, in your **sharepoint-extension** project, you can add `console.log(this.context.pageContext.web)` in the `onInit` function to find your absolute_url in ExportToDocCommandSet.ts file
